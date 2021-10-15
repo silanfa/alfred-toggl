@@ -80,5 +80,15 @@ func (c StatusFilter) Items(arg, data string) (items []alfred.Item, err error) {
 		break
 	}
 
+	span, _ := getSpan("week")
+	var report *summaryReport
+	report, err = generateReport(span.Start, span.End, -1, "")
+	for _, date := range report.dates {
+		items = append(items, alfred.Item{
+			Title: fmt.Sprintf("Total time for week: %s", formatDuration(date.total)),
+		})
+		break
+	}
+
 	return
 }
