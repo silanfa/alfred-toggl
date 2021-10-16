@@ -70,25 +70,22 @@ func (c StatusFilter) Items(arg, data string) (items []alfred.Item, err error) {
 		})
 	}
 
-	span, _ := getSpan("today")
-	var report *summaryReport
-	report, err = generateReport(span.Start, span.End, -1, "")
-	for _, date := range report.dates {
+	span1, _ := getSpan("today")
+	var report1 *summaryReport
+	report1, err = generateReport(span1.Start, span1.End, -1, "")
+	for _, date1 := range report1.dates {
 		items = append(items, alfred.Item{
-			Title: fmt.Sprintf("Total time for today: %s", formatDuration(date.total)),
+			Title: fmt.Sprintf("Total time for today: %s", formatDuration(date1.total)),
 		})
 		break
 	}
 
-	span, _ := getSpan("week")
-	var report *summaryReport
-	report, err = generateReport(span.Start, span.End, -1, "")
-	for _, date := range report.dates {
-		items = append(items, alfred.Item{
-			Title: fmt.Sprintf("Total time for week: %s", formatDuration(date.total)),
-		})
-		break
-	}
+	span2, _ := getSpan("week")
+	var report2 *summaryReport
+	report2, err = generateReport(span2.Start, span2.End, -1, "")
+	items = append(items, alfred.Item{
+		Title: fmt.Sprintf("Total time for %s: %s",span2.Label, formatDuration(report2.total)),
+	})
 
 	return
 }
